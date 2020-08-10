@@ -39,15 +39,16 @@ import javax.crypto.spec.SecretKeySpec;
 public class Glome {
 
   private XECPublicKey peerKey;
-  private KeyPair userKeys;
   private Mac userMacKey;
   private Mac peerMacKey;
   private int minPeerTagLength;
 
-  private final int MIN_CNT_VALUE = 0;
-  private final int MAX_CNT_VALUE = 255;
-  private final int MAX_TAG_LENGTH = 32;
-  private final int MIN_TAG_LENGTH = 1;
+  private final KeyPair userKeys;
+
+  private final static int MIN_CNT_VALUE = 0;
+  private final static int MAX_CNT_VALUE = 255;
+  private final static int MAX_TAG_LENGTH = 32;
+  private final static int MIN_TAG_LENGTH = 1;
 
   /**
    * First Glome constructor. Generates a pair of private/public keys for the user, calculates
@@ -165,9 +166,9 @@ public class Glome {
     }
 
     byte[] sharedSecret = ka.generateSecret();
-    byte[] userMac = reverseArray(
+    byte[] userMac = reverseByteArray(
         getU32Bytes(userPublicKey())); // in order to have <i>little-endian</i> byte-order;
-    byte[] peerMac = reverseArray(getU32Bytes(peerKey)); // the same
+    byte[] peerMac = reverseByteArray(getU32Bytes(peerKey)); // the same
 
     this.userMacKey = getMacKey(sharedSecret, peerMac, userMac);
     this.peerMacKey = getMacKey(sharedSecret, userMac, peerMac);
@@ -228,8 +229,7 @@ public class Glome {
    * @param senderPublicKey sender's public key.
    * @return corresponding MAC key.
    */
-  private Mac getMacKey(byte[] sharedSecret, byte[] receiverPublicKey,
-      byte[] senderPublicKey) {
+  private Mac getMacKey(byte[] sharedSecret, byte[] receiverPublicKey, byte[] senderPublicKey) {
     byte[] key = generateMacMsg(sharedSecret, receiverPublicKey, senderPublicKey);
 
     Mac mac;
@@ -267,7 +267,7 @@ public class Glome {
         .array();
   }
 
-  private byte[] reverseArray(byte[] arr) {
+  private byte[] reverseByteArray(byte[] arr) {
     for (int i = 0; i < arr.length / 2; i++) {
       byte tmp = arr[i];
       arr[i] = arr[arr.length - i - 1];

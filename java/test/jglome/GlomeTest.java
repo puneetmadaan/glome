@@ -60,15 +60,13 @@ public class GlomeTest {
   @Test
   public void testShouldFailWhenMinPeerTagLengthIsOutOfBounds() {
     try {
-      Glome glomeManager = new Glome((XECPublicKey) aKeys[0].getPublic(),
-          (XECPrivateKey) bKeys[0].getPrivate(), 0);
+      new Glome((XECPublicKey) aKeys[0].getPublic(), (XECPrivateKey) bKeys[0].getPrivate(), 0);
     } catch (MinPeerTagLengthOutOfBoundsException e) {
       assertEquals(e.getMessage(), "minPeerTagLength argument should be in [1..32] range. Got 0.");
     }
 
     try {
-      Glome glomeManager = new Glome((XECPublicKey) aKeys[0].getPublic(),
-          (XECPrivateKey) bKeys[0].getPrivate(), 33);
+      new Glome((XECPublicKey) aKeys[0].getPublic(), (XECPrivateKey) bKeys[0].getPrivate(), 33);
     } catch (MinPeerTagLengthOutOfBoundsException e) {
       assertEquals(e.getMessage(), "minPeerTagLength argument should be in [1..32] range. Got 33.");
     }
