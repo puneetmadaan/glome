@@ -65,7 +65,7 @@ For more information see the in-code documentation.
 
 ### Test
 
-In the test folder we have scripts that implement test classes based on unittest. To run all the test use:
+In the test folder we have scripts that implement test classes based on unittest. To run all tests use:
 
 ```
 python -m test
