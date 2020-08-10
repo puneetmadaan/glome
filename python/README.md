@@ -65,9 +65,15 @@ For more information see the in-code documentation.
 
 ### Test
 
-In the test folder we have scripts that implement test classes based on unittest. To run them, use:
+In the test folder we have scripts that implement test classes based on unittest. To run all the test use:
+
+```
+python -m test
+```
+from this directory. If only a particular test module is wanted to be executed, then run:
 
 ```
 python -m test.my_module_name
 ```
-from this directory, where `my_module_name` is the name of the test module to be executed (the name of the file without the .py). 
+
+where `my_module_name` is the name of the test module to be executed (the name of the file without the .py). 
